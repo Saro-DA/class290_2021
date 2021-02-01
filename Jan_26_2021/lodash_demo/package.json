@@ -1,0 +1,14 @@
+{
+  "name": "lodash_demo",
+  "version": "1.0.0",
+  "description": "Just a demo for require and export.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Saro",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.20"
+  }
+}
