@@ -1,14 +1,16 @@
+// Promise states:
 // pending
 // pulfilled
 // rejected
 
 const promise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    reject("Rejected!");
+    resolve("Resolved!");
   }, 2000);
 });
 
 console.log(promise, " -- promise");
+console.log("some action");
 
 promise
   .then(data => {
@@ -31,7 +33,10 @@ promise
     console.log(data, " --- inside then");
     return 1;
   })
-  .then(function () {})
+  .then(function () {
+    console.log("something");
+    return 2;
+  })
   .then(data => {
     console.log(data, " --- 1.5 inside then");
   })
