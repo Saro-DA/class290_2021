@@ -1,14 +1,13 @@
-
-const users = [];
+const User = require('./user.entity');
 
 module.exports = {
-    findAll(query) {
-        return users;
+    create(payload) {
+        const user = new User(payload);
+        return user.save();
     },
 
-    create(user) {
-        users.push(user);
-        return user;
+    findAll(query) {
+        return User.find().exec();
     },
 
     findOne(id) {

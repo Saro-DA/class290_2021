@@ -11,10 +11,14 @@ router.get('/about', (req, res) => {
     res.send("Users about.");
 })
 
-router.get('/', (req, res) => {
-    const query = req.query;
-    const result = users.findAll(query);
-    res.json(result);
+router.get('/', async (req, res) => {
+    try {
+        const query = req.query;
+        const result = await users.findAll(query);
+        res.json(result);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 router.get('/:id', (req, res) => {
@@ -23,10 +27,14 @@ router.get('/:id', (req, res) => {
     res.json(result);
 })
 
-router.post('/', (req, res) => {
-    const body = req.body;
-    const result = users.create(body);
-    res.json(result);
+router.post('/', async (req, res) => {
+    try {
+        const body = req.body;
+        const result = await users.create(body);
+        res.json(result);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 router.delete('/:id', (req, res) => {

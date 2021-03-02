@@ -1,3 +1,4 @@
+require('./db-connection');
 const express = require('express');
 const app = express();
 const users = require('./users/users.controller');
