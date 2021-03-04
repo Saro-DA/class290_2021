@@ -13,19 +13,18 @@ app.get('/', (req, res) => {
     res.send("Hello World!");
 })
 
-app.post('/createfile', (req, res) => {
-    writeInFile(req.body.content, () => {
-        res.send("File created successfully.");
-    })
+app.post('/createfile', async (req, res) => {
+    await writeInFile(req.body.content);
+    res.send("File created successfully.");
 })
 
-app.get('/readfile', (req, res) => {
-    readFromFile((err, data) => {
-        if(err) {
-            return res.status(500).send("There was an error reading the file.");
-        }
+app.get('/readfile', async (req, res) => {
+    try {
+        const data = await readFromFile();
         res.send(data);
-    })
+    } catch (err) {
+        res.status(500).send("There was an error reading the file.");
+    }
 })
 
 const port = 3000;
