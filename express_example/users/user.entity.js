@@ -29,7 +29,7 @@ const schema = new Schema({
 schema.pre('save', function(next) {
     if(this.isModified('password')) {
         const salt = bcrypt.genSaltSync();
-        this.password = bcrypt.hashSync(this.password, salt);
+        target.password = bcrypt.hashSync(target.password, salt);
     }
 
     next();

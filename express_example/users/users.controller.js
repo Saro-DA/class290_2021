@@ -18,11 +18,11 @@ router.get('/', asyncHandler(async (req, res) => {
     res.json(result);
 }))
 
-router.get('/:id', (req, res) => {
+router.get('/:id', asyncHandler(async (req, res) => {
     const {id} = req.params;
-    const result = users.findOne(id);
+    const result = await users.findOne(id);
     res.json(result);
-})
+}))
 
 router.post('/', asyncHandler(async (req, res) => {
     const body = req.body;
@@ -30,10 +30,16 @@ router.post('/', asyncHandler(async (req, res) => {
     res.status(201).json(result);
 }))
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', asyncHandler(async (req, res) => {
     const {id} = req.params;
-    const result = users.delete(id);
+    const result = await users.delete(id);
     res.json(result);
-})
+}))
+
+router.patch('/:id', asyncHandler(async (req, res) => {
+    const {id} = req.params;
+    const result = await users.update(id, req.body);
+    res.json(result);
+}))
 
 module.exports = router;
