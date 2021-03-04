@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
     try {
         const body = req.body;
         const result = await users.create(body);
-        res.json(result);
+        res.status(201).json(result);
     } catch (err) {
         res.status(500).json(err);
     }
