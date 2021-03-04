@@ -4,7 +4,9 @@ const express = require('express');
 const app = express();
 const users = require('./users/users.controller');
 const bodyParser = require('body-parser');
-const { writeInFile, readFromFile } = require('./commons/util')
+const { writeInFile, readFromFile } = require('./commons/util');
+const { handleError } = require('./commons/middlewares/error-handler.middleware');
+const asyncHandler = require('express-async-handler');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -14,19 +16,17 @@ app.get('/', (req, res) => {
     res.send("Hello World!");
 })
 
-app.post('/createfile', async (req, res) => {
+app.post('/createfile', asyncHandler(async (req, res) => {
     await writeInFile(req.body.content);
     res.send("File created successfully.");
-})
+}))
 
-app.get('/readfile', async (req, res) => {
-    try {
-        const data = await readFromFile();
-        res.send(data);
-    } catch (err) {
-        res.status(500).send("There was an error reading the file.");
-    }
-})
+app.get('/readfile', asyncHandler(async (req, res) => {
+    const data = await readFromFile();
+    res.send(data);
+}))
+
+app.use(handleError);
 
 const port = 3000;
 app.listen(port, () => {
