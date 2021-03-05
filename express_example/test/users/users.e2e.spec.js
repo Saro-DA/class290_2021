@@ -2,6 +2,8 @@ const { describe } = require('mocha');
 const request = require('supertest');
 const app = require('../../app');
 const mongoose = require('mongoose');
+const chai = require('chai');
+const { expect } = require('chai');
 
 describe('Testing users e2e', function() {
 
@@ -22,6 +24,14 @@ describe('Testing users e2e', function() {
                 password: "1234"
             })
             .expect(201)
+        })
+
+        it('Returns an array of users with length == 1', function() {
+            return request(app)
+            .get('/users')
+            .expect((res) => {
+                return expect(res.body.length).eql(1);
+            })
         })
 
     })

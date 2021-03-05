@@ -20,6 +20,7 @@
     "mongoose": "^5.11.18"
   },
   "devDependencies": {
+    "chai": "^4.3.3",
     "mocha": "^8.3.0",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"
