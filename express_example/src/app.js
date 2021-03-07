@@ -9,9 +9,13 @@ const auth = require('./auth/auth.controller');
 const { writeInFile, readFromFile } = require('./commons/util');
 const { handleError } = require('./commons/middlewares/error-handler.middleware');
 const asyncHandler = require('express-async-handler');
+const { parse } = require('./commons/middlewares/jwt.middleware');
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+
+app.use(parse);
+
 app.use('/users', users);
 app.use('/auth', auth);
 

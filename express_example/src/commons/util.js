@@ -27,5 +27,21 @@ module.exports = {
             return mongoose.model(modelName)
         }
         return mongoose.model(modelName, modelSchema);
+    },
+
+    isPublicPath(path, method) {
+        console.log(`is public ${path} ${method}`);
+        const publicPaths = [
+            '/auth/login',
+            { path: '/users', method: 'POST' }
+        ]
+
+        return publicPaths.some(obj => {
+            if (typeof (obj) === 'string') {
+                return obj === path;
+            }
+
+            return obj.path === path && obj.method === method;
+        })
     }
 }
