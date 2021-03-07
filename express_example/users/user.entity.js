@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const { getModel } = require('../commons/util');
 
 const Schema = mongoose.Schema;
 
@@ -24,10 +25,10 @@ const schema = new Schema({
         type: String,
         required: true,
     },
-}, {collection : 'users'});
+}, { collection: 'users' });
 
-schema.pre('save', function(next) {
-    if(this.isModified('password')) {
+schema.pre('save', function (next) {
+    if (this.isModified('password')) {
         const salt = bcrypt.genSaltSync();
         this.password = bcrypt.hashSync(this.password, salt);
     }
@@ -35,4 +36,4 @@ schema.pre('save', function(next) {
     next();
 })
 
-module.exports = mongoose.model('User', schema);
+module.exports = getModel('User', schema);

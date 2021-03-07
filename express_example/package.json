@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon index.js --watch",
-    "test:e2e": "NODE_ENV=test mocha test/**/*.spec.js"
+    "test:e2e": "NODE_ENV=test mocha --watch test/**/*.spec.js || exit 0"
   },
   "keywords": [],
   "author": "",
