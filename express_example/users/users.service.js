@@ -1,5 +1,7 @@
 const { NotFound } = require('http-errors');
 const User = require('./user.entity');
+const bcrypt = require('bcrypt')
+const { Unauthorized } = require('http-errors');
 
 class UserService {
     create(payload) {
@@ -13,7 +15,7 @@ class UserService {
 
     async findOne(id) {
         const user = await User.findById(id).exec();
-        if(!user) {
+        if (!user) {
             throw new NotFound(`User with id ${id} not found.`);
         }
         return user;
@@ -30,6 +32,15 @@ class UserService {
         user = Object.assign(user, payload);
 
         return user.save();
+    }
+
+    async validate(username, password) {
+        let user = await User.findOne({ username }).exec();
+        if (!user || !bcrypt.compareSync(password, user.password)) {
+            throw new Unauthorized();
+        }
+
+        return user;
     }
 }
 
