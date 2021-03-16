@@ -3,13 +3,12 @@ require('./db-connection');
 const express = require('express');
 const app = express();
 const users = require('./users/users.controller');
-const bodyParser = require('body-parser');
 const { writeInFile, readFromFile } = require('./commons/util');
 const { handleError } = require('./commons/middlewares/error-handler.middleware');
 const asyncHandler = require('express-async-handler');
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 app.use('/users', users);
 
 app.get('/', (req, res) => {

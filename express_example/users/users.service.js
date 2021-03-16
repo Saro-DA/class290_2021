@@ -13,7 +13,7 @@ class UserService {
 
     async findOne(id) {
         const user = await User.findById(id).exec();
-        if(!user) {
+        if (!user) {
             throw new NotFound(`User with id ${id} not found.`);
         }
         return user;
