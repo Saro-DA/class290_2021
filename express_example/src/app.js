@@ -1,4 +1,6 @@
-require('dotenv').config();
+require('dotenv').config({
+    path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+});
 require('./db-connection');
 const express = require('express');
 const app = express();
@@ -27,7 +29,4 @@ app.get('/readfile', asyncHandler(async (req, res) => {
 
 app.use(handleError);
 
-const port = 3000;
-app.listen(port, () => {
-    console.log(`Listening to port ${port}. 🚀`);
-})
+module.exports = app;

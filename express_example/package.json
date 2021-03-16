@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon app.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "nodemon index.js --watch",
+    "test:e2e": "NODE_ENV=test mocha --recursive './test/**/*.spec.js'"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,9 @@
     "mongoose": "^5.11.18"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   }
 }
