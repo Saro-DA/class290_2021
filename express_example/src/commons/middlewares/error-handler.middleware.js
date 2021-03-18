@@ -7,6 +7,11 @@ module.exports = {
         } else if (err.message.includes('validation')) {
             err.statusCode = 400;
         }
+
+        if (!err.statusCode) {
+            console.error(err);
+        }
+
         return res.status(err.statusCode || 500).json({ message: err.message });
     }
 }

@@ -5,6 +5,7 @@ require('./db-connection');
 const express = require('express');
 const app = express();
 const users = require('./users/users.controller');
+const auth = require('./auth/auth.controller');
 const { writeInFile, readFromFile } = require('./commons/util');
 const { handleError } = require('./commons/middlewares/error-handler.middleware');
 const asyncHandler = require('express-async-handler');
@@ -12,6 +13,7 @@ const asyncHandler = require('express-async-handler');
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use('/users', users);
+app.use('/auth', auth);
 
 app.get('/', (req, res) => {
     res.send("Hello World!");

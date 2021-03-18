@@ -26,7 +26,7 @@ describe("Testing users API", function () {
                 })
         })
 
-        it("Fails to create a user with existing username", function () {
+        it.skip("Fails to create a user with existing username", function () {
             return request(app)
                 .post('/users')
                 .send({
