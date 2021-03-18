@@ -26,7 +26,7 @@ describe("Testing users API", function () {
                 })
         })
 
-        it("Fails to create the same user", function () {
+        it("Fails to create a user with existing username", function () {
             return request(app)
                 .post('/users')
                 .send({
@@ -38,7 +38,7 @@ describe("Testing users API", function () {
                 .expect(409);
         })
 
-        it.skip("Fails to create a user without username", function () {
+        it("Fails to create a user without username", function () {
             return request(app)
                 .post('/users')
                 .send({
@@ -46,7 +46,18 @@ describe("Testing users API", function () {
                     firstName: "John",
                     lastName: "Conor"
                 })
-                .expect(409);
+                .expect(400);
+        })
+
+        it("Fails to create a user without password", function () {
+            return request(app)
+                .post('/users')
+                .send({
+                    username: "testuser",
+                    firstName: "John",
+                    lastName: "Conor"
+                })
+                .expect(400);
         })
     })
 })
