@@ -22,6 +22,14 @@ class AuthService {
 
         return token;
     }
+
+    validateToken(token) {
+        const obj = jwt.verify(token, process.env.JWT_SECRET, {
+            ignoreExpiration: true
+        })
+
+        return { userId: obj.userId, username: obj.username };
+    }
 }
 
 module.exports = new AuthService();
