@@ -5,6 +5,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 describe("Testing auth API", function () {
+    let lockedUserId;
 
     before(async function () {
         await request(app)
@@ -18,6 +19,7 @@ describe("Testing auth API", function () {
             })
             .expect(201)
             .expect(res => {
+                lockedUserId = res.body._id;
                 return expect(res.body).to.have.property('_id');
             });
 
@@ -77,4 +79,31 @@ describe("Testing auth API", function () {
                 });;
         });
     })
+
+    describe('Testing unlocking a locked user', function () {
+        let token;
+
+        beforeEach(function () {
+            return request(app)
+                .post('/auth/login')
+                .send({
+                    username: "johnconor",
+                    password: "1234"
+                })
+                .expect((res) => {
+                    token = res.body.token;
+                    return expect(res.body).to.have.property('token');
+                })
+        })
+
+        it('Unlocks a locked user with admin privileges', function () {
+            return request(app)
+                .patch(`/admin/unlock-user/${lockedUserId}/`)
+                .set('Authorization', `Bearer ${token}`)
+                .expect(200)
+                .expect((res) => {
+                    return expect(res.body).eql({ message: "User has successfully been unlocked!" });
+                })
+        })
+    });
 })
