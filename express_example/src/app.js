@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const users = require('./users/users.controller');
 const auth = require('./auth/auth.controller');
+const posts = require('./posts/posts.controller');
 const { writeInFile, readFromFile } = require('./commons/util');
 const { handleError } = require('./commons/middlewares/error-handler.middleware');
 const asyncHandler = require('express-async-handler');
@@ -23,6 +24,7 @@ app.use(jwtMiddleware.unless({
 
 app.use('/users', users);
 app.use('/auth', auth);
+app.use('/posts', posts);
 
 app.get('/', (req, res) => {
     res.send("Hello World!");
