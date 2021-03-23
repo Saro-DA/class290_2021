@@ -14,7 +14,12 @@ const { jwtMiddleware } = require('./commons/middlewares/auth.middleware');
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-app.use(jwtMiddleware);
+app.use(jwtMiddleware.unless({
+    path: [
+        '/auth/login',
+        { url: '/users', methods: ['POST'] }
+    ]
+}));
 
 app.use('/users', users);
 app.use('/auth', auth);
