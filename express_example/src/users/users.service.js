@@ -8,7 +8,16 @@ class UserService {
     }
 
     findAll(query) {
-        return User.find().exec();
+        const { offset, limit, sort, asc } = query;
+
+        const sortObj = {};
+        sortObj[sort] = asc === 'true' ? 'asc' : 'desc';
+
+        return User.find({}, { password: false })
+            .skip(+offset)
+            .limit(+limit)
+            .sort(sortObj)
+            .exec();
     }
 
     async findOne(id) {
