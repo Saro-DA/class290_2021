@@ -25,7 +25,7 @@ class AuthService {
 
     validateToken(token) {
         const obj = jwt.verify(token, process.env.JWT_SECRET, {
-            ignoreExpiration: true
+            ignoreExpiration: false
         })
 
         return { userId: obj.userId, username: obj.username };

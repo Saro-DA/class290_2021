@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "grs": "node gen_token.js",
     "start:dev": "nodemon index.js --watch",
     "test:e2e": "NODE_ENV=test mocha --recursive './test/**/*.spec.js'"
   },
