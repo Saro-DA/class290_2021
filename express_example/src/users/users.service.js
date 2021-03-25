@@ -1,5 +1,7 @@
 const { NotFound } = require('http-errors');
 const User = require('./user.entity');
+const Post = require('../posts/post.entity');
+const mongoose = require('mongoose');
 
 class UserService {
     create(payload) {
@@ -29,8 +31,28 @@ class UserService {
     }
 
     async delete(id) {
-        const user = await this.findOne(id);
-        return user.remove();
+        // Remember to install Replica mode of mongodb in your system to enable
+        // transactions. https://docs.mongodb.com/manual/tutorial/deploy-replica-set/
+
+        const session = await mongoose.startSession();
+        session.startTransaction();
+
+        try {
+            const user = await this.findOne(id);
+            await Post.deleteMany({ creator: user._id }, {
+                session
+            });
+            const removedUser = await user.remove({
+                session
+            });
+            await session.commitTransaction();
+            return removedUser;
+        } catch (err) {
+            await session.abortTransaction();
+            throw err;
+        } finally {
+            session.endSession();
+        }
     }
 
     async update(id, payload) {
