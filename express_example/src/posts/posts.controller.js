@@ -8,4 +8,9 @@ router.post('/', asyncHandler(async (req, res) => {
     res.status(201).json(post);
 }))
 
+router.get('/', asyncHandler(async (req, res) => {
+    const result = await posts.findAll(req.user, req.query);
+    res.json(result);
+}))
+
 module.exports = router;

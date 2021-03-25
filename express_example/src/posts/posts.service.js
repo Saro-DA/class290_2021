@@ -7,11 +7,19 @@ class PostService {
 
         const post = {
             ...payload,
-            creatorId: user
+            creator: user
         }
 
         const dbPost = new Post(post);
         return dbPost.save();
+    }
+
+    async findAll(user, query) {
+        return Post.find({ creator: user.userId })
+            .populate('creator', {
+                password: false
+            })
+            .exec();
     }
 }
 

@@ -6,8 +6,10 @@ mongoose.connect(process.env.DATABASE_HOST, {
     useCreateIndex: true
 })
 
+// mongoose.set('debug', true);
+
 const connection = mongoose.connection;
 
-connection.once('open', function() {
+connection.once('open', function () {
     console.log("Mongodb database connection established successfully.");
 })

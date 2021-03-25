@@ -13,8 +13,8 @@ const schema = new Schema({
         required: true
     },
 
-    creatorId: {
-        type: mongoose.Schema.Types.ObjectId,
+    creator: {
+        type: mongoose.Types.ObjectId,
         ref: User,
         required: true
     }
