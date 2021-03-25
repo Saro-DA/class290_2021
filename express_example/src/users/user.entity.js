@@ -24,10 +24,14 @@ const schema = new Schema({
         type: String,
         required: true,
     },
-}, {collection : 'users'});
 
-schema.pre('save', function(next) {
-    if(this.isModified('password')) {
+    role: {
+        type: String,
+    }
+}, { collection: 'users' });
+
+schema.pre('save', function (next) {
+    if (this.isModified('password')) {
         const salt = bcrypt.genSaltSync();
         this.password = bcrypt.hashSync(this.password, salt);
     }

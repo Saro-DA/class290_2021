@@ -15,7 +15,13 @@ class PostService {
     }
 
     async findAll(user, query) {
-        return Post.find({ creator: user.userId })
+        const filter = {};
+
+        if (user.role !== 'admin') {
+            filter.creator = user.userId;
+        }
+
+        return Post.find(filter)
             .populate('creator', {
                 password: false
             })
