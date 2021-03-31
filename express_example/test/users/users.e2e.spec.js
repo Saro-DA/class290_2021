@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const chai = require('chai');
 const expect = chai.expect;
 
-describe("Testing users API", function () {
+describe.skip("Testing users API", function () {
 
     after(async function () {
         await mongoose.connection.db.dropDatabase();
